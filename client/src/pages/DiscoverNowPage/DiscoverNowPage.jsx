@@ -1,8 +1,53 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './DiscoverNowPage.scss';
 
 export default function DiscoverNowPage() {
+
+  const [artworks, setArtworks] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  useEffect (() => {
+    const fetchArtworks = async () => {
+      try {
+        console.log('Fetching artworks from API...');
+        const response = await axios.get('http://localhost:3001/api/art-styles');
+        console.log('Response data:', response.data);
+        setArtworks(response.data || []);
+      } catch (error) {
+        console.error('Error fetching artworks', error )
+      }
+    };
+    fetchArtworks();
+  }, []);
+
+  useEffect(() => {
+    if (!searchQuery) {
+      return;
+    }
+
+    const fetchFilteredArtworks = async () => {
+      try {
+        console.log('Fetching filtered artworks from API...');
+        const response = await axios.get('http://localhost:3001/api/search-art-styles', {
+          params: { keyword: searchQuery }
+        });
+        console.log('Filtered response data:', response.data);
+        setArtworks(response.data || []);
+      } catch (error) {
+        console.error('Error fetching filtered artworks', error);
+      }
+    };
+
+    fetchFilteredArtworks();
+  }, [searchQuery]);
+
+  const handleSearchChange = (event) => {
+    console.log('Search input changed:', event.target.value);
+    setSearchQuery(event.target.value);
+  };
+
   return (
     <div className="discover-now">
 
@@ -19,6 +64,8 @@ export default function DiscoverNowPage() {
             type="text" 
             className="discover-now__search-input" 
             placeholder="Search for art styles, artists, and their works . . ." 
+            value={searchQuery}
+            onChange={handleSearchChange}
           />
           <button className="discover-now__search-button">
             <span className="discover-now__search-icon">🔍</span> Search
@@ -26,14 +73,20 @@ export default function DiscoverNowPage() {
         </div>
 
         <div className="discover-now__artworks">
-          {[1, 2, 3].map((placeholder) => (
-            <div key={placeholder} className="discover-now__artwork">
-              <div className="discover-now__artwork-placeholder">Placeholder Image</div>
+          {Array.isArray(artworks) && artworks.map((artwork) => (
+            <div key={artwork.id} className="discover-now__artwork">
+              <div className="discover-now__artwork-placeholder">
+                {artwork.primaryimageurl ? (
+                  <img src={artwork.primaryimageurl} alt={artwork.title} />
+                ) : (
+                  <div>No Image Available</div>
+                )}
+              </div>
               <div className="discover-now__artwork-details">
-                <p className="discover-now__artwork-title">Artwork Title</p>
-                <p className="discover-now__artwork-artist">Artist Name</p>
-                <p className="discover-now__artwork-style">Art Style</p>
-                <p className="discover-now__artwork-year">Year</p>
+                <p className="discover-now__artwork-title">{artwork.title}</p>
+                <p className="discover-now__artwork-artist">{artwork.people?.[0]?.name || 'Unknown Artist'}</p>
+                <p className="discover-now__artwork-style">{artwork.classification || 'Unknown Style'}</p>
+                <p className="discover-now__artwork-year">{artwork.century || 'Unknown Century'}</p>
               </div>
             </div>
           ))}
@@ -42,3 +95,5 @@ export default function DiscoverNowPage() {
     </div>
   );
 }
+
+
