@@ -1,12 +1,13 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const dotenv = require('dotenv');
+// const dotenv = require('dotenv');
 const axios = require('axios');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-dotenv.config();
+// dotenv.config();
 
 
 app.get('/api/art-styles', async (req, res) => {
