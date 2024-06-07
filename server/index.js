@@ -35,11 +35,8 @@ app.get('/api/art-styles', async (req, res) => {
     try {
         const response = await axios.get('https://api.artic.edu/api/v1/artworks/search', {
             params: {
-                artist_title: "Ancient Roman",
-                classification_titles: ["modern and contemporary art", "painting"],
-                style_title: "Modernism",
-                date_display: "1650",
                 q: query,
+                fields: 'image_id, id',
                 limit: 3,
             }
         });
