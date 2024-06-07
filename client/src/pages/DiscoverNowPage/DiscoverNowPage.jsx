@@ -76,17 +76,17 @@ export default function DiscoverNowPage() {
           {Array.isArray(artworks) && artworks.map((artwork) => (
             <div key={artwork.id} className="discover-now__artwork">
               <div className="discover-now__artwork-placeholder">
-                {artwork.primaryimageurl ? (
-                  <img src={artwork.primaryimageurl} alt={artwork.title} />
+                {artwork.image_id ? (
+                  <img src={`https://www.artic.edu/iiif/2/${artwork.image_id}/full/843,/0/default.jpg`} alt={artwork.title} />
                 ) : (
                   <div>No Image Available</div>
                 )}
               </div>
               <div className="discover-now__artwork-details">
-                <p className="discover-now__artwork-title">{artwork.title}</p>
-                <p className="discover-now__artwork-artist">{artwork.people?.[0]?.name || 'Unknown Artist'}</p>
-                <p className="discover-now__artwork-style">{artwork.classification || 'Unknown Style'}</p>
-                <p className="discover-now__artwork-year">{artwork.century || 'Unknown Century'}</p>
+                <p className="discover-now__artwork-title">{artwork.artist_title}</p>
+                <p className="discover-now__artwork-artist">{artwork.style_title}</p>
+                <p className="discover-now__artwork-style">{artwork.classification_titles}</p>
+                <p className="discover-now__artwork-year">{artwork.date_display}</p>
               </div>
             </div>
           ))}

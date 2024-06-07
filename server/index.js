@@ -1,28 +1,27 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-// const dotenv = require('dotenv');
+const dotenv = require('dotenv');
 const axios = require('axios');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-// dotenv.config();
+dotenv.config();
 
 
 app.get('/api/art-styles', async (req, res) => {
     try {
-      const response = await axios.get('https://api.harvardartmuseums.org/object', {
+      const response = await axios.get('https://api.artic.edu/api/v1/artworks', {
         params: {
-          apikey: process.env.HARVARD_API_KEY,
-          classification: 'Paintings',
-          name: 'Harry Annas',
-          century: '20th century',
-          division: 'Modern and Contemporary Art',
-          size: 3 
+          artist_title: "Ancient Roman",
+          classification_titles: ["modern and contemporary art", "painting"],
+          style_title: "Modernism",
+          date_display: "1820",
+          limit: 3 
         }
       });
-      res.json(response.data.records); 
+      res.json(response.data.data); 
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
@@ -34,15 +33,18 @@ app.get('/api/art-styles', async (req, res) => {
         return res.status(400).json({ error: 'Query parameter is required'});
     }
     try {
-        const response = await axios.get('https://api.harvardartmuseums.org/object', {
+        const response = await axios.get('https://api.artic.edu/api/v1/artworks/search', {
             params: {
-                apikey: process.env.HARVARD_API_KEY,
-                keyword: query,
-                size: 3,
+                artist_title: "Ancient Roman",
+                classification_titles: ["modern and contemporary art", "painting"],
+                style_title: "Modernism",
+                date_display: "1650",
+                q: query,
+                limit: 3,
             }
         });
-        console.log(response.data)
-        res.json(response.data.records || []); 
+        console.log(response.data.data)
+        res.json(response.data.data || []); 
     } catch (error) {
         res.status(500).json({ error: error.message});
     }
