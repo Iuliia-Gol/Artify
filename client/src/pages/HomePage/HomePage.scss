@@ -1,0 +1,142 @@
+
+// @import 'global.scss' as ;
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin:0;
+    box-sizing: border-box;
+    background-color:  #FAF7EF;
+
+.home{
+    display: flex;
+    justify-content: space-between;
+   
+
+    &__nav{
+        display: flex;
+        flex-direction: row;
+    }
+    &__logo{
+        font-size: 2rem;
+        letter-spacing: 1px;
+        font-weight: 100;
+        letter-spacing: 4px;
+        color: #2B46BD;
+        padding-left: 6vw;
+        margin-top: 7vw;
+    }
+
+    &__nav-button{
+        position: absolute;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: white;
+        top: 5%;
+        left: 75%;
+        border: none;
+        border-radius: 12px;
+        padding: 15px;
+        background-image: linear-gradient(to right, #ffde59, #ff914d );
+
+    }
+
+    &__main{
+        margin-top: 20%;
+        margin-right: 5%;
+
+    }
+    &__imagebox{
+        display: flex;
+        position: absolute;
+        left: 33%;
+        top: 12%;
+
+        &--image{
+            background-repeat: no-repeat;
+            background-position: top right;
+            background-size: contain;
+            padding: 38vw;
+        }
+    }
+
+    &__title{
+        text-align: center;
+        font-size: 5rem;
+        color: #2B46BD;
+        font-weight: 100;
+
+        &--sublime {
+        display: flex;
+        position: absolute;
+        margin-right: 3%;
+        letter-spacing: 17px;
+        }
+        &--escape{
+            margin-left: 5%;
+            letter-spacing: 17px;
+        }
+        &--highlight {
+          position: relative;
+          font-family: 'League Script';
+          font-size: 5.8rem;
+          color: #ff8a00;
+          margin-right: 63vw;
+          top: 10vw;
+
+        
+        }
+      }
+
+      &__subtitle-section{
+        display: flexbox;
+        justify-content: baseline;
+        width: 45%;
+    
+
+        &--description {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: #2B46BD;
+            font-weight: 100;
+            word-spacing: 0.5px;
+            margin-top: 15%;
+          }
+      }
+
+      &__discover-button {
+        border-color: #007bff;
+        color: #007bff;
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+  
+        &:hover {
+          background-color: #0056b3;
+        }
+      }
+      &__stats{
+        display: flex;
+      justify-content: center;
+      margin-top: 2rem;
+
+      &__stat {
+        background-color: #f8f9fa;
+        color: #333;
+        padding: 1rem 2rem;
+        margin: 0 1rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      }
+      
+
+      
+
+    }
+
+
+
+
+}
+

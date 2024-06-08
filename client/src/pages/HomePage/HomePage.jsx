@@ -2,42 +2,45 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './HomePage.scss';
+import BackgroundImage from '../../assets/AdobeStock_542387977.png';
 
 function HomePage() {
   return (
     <div className="home">
+
       <nav className="home__nav">
         <div className="home__logo">artifý</div>
-        <button className="home__nav-button">Generative Artwork</button>
+        <div><button className="home__nav-button">Generative Artwork</button></div>
       </nav>
+
+
       <main className="home__main">
-        <div className="home__header">
-          <h1 className="home__title">Sublime Art Escapes</h1>
-          <div className="home__image">
-            {/* Add image here */}
-          </div>
+
+      <div className='home__imagebox' >
+      <img className='home__imagebox--image' style={{ backgroundImage: `url(${BackgroundImage})`}}></img>
+      </div>
+        
+        <div className="home__title">
+          <div className="home__title--sublime">SUBLIME</div>
+          <span className="home__title--highlight">art</span>
+          <div className="home__title--escape">ESCAPES</div>
         </div>
+
         <div className="home__subtitle-section">
-          <h2 className="home__subtitle">Explore a world of art</h2>
+
+          <h2 className="home__subtitle-section--description">Uncover the richness of art styles and history. 
+          Let our AI help you create stunning artworks inspired by the great masters.</h2>
+
           <div className="home__discover-now">
           <Link to="/discover-now" className="home__discover-now-button">
-              <span>Discover Now</span>
-              <span className="home__discover-now-icon">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M12 4L20 12L12 20L4 12L12 4Z" fill="currentColor" />
-                </svg>
-              </span>
+          <button className="home__discover-button">Discover Now</button>
             </Link>
           </div>
+
         </div>
-        <div className="home__body-text">
-          {/* body text here */}
+        <div className="home__stats">
+          <div className="home__stat">Explore 100+ Art Styles</div>
+          <div className="home__stat">Create Your Masterpiece with AI</div>
         </div>
       </main>
     </div>
