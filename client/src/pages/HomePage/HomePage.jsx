@@ -15,10 +15,13 @@ function HomePage() {
       <div className="home__logo">
           <img src={Logo} alt="Artifý Logo" className="discover__logo--image" />
         </div>
-        <div><button className="home__nav-button">Generative Artwork</button></div>
+        
+        <div>
+
+        <Link to='/generate-artwork' className="home__nav-button">Generative Artwork</Link>
+        
+        </div>
       </nav>
-
-
       <main className="home__main">
 
       <div className='home__imagebox' >
