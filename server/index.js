@@ -18,7 +18,7 @@ app.get('/api/art-styles', async (req, res) => {
           classification_titles: ["modern and contemporary art", "painting"],
           style_title: "Modernism",
           date_display: "1820",
-          limit: 4 
+          limit: 6 
         }
       });
       res.json(response.data.data); 
@@ -36,8 +36,8 @@ app.get('/api/art-styles', async (req, res) => {
         const response = await axios.get('https://api.artic.edu/api/v1/artworks/search', {
             params: {
                 q: query,
-                fields: 'image_id, id',
-                limit: 4,
+                fields: 'image_id, id, date_display, style_title, artist_title',
+                limit: 6,
             }
         });
         console.log(response.data.data)

@@ -56,9 +56,10 @@ export default function GenerateArtworkPage() {
         <Link to="/" className="navbar__button">HOME</Link>
       </nav>
       <main className="main-section">
-        <h2 className="main-section__title">CREATE YOUR MASTERPIEACE</h2>
+        <h2 className="main-section__title">CREATE YOUR MASTERPIECE</h2>
         <p className="main-section__subtitle">
-          Select an art style, and our AI will generate a unique artwork for you.
+        Choose an art style, and let our AI create a unique masterpiece. Exploring different art styles helps you understand the diverse techniques and historical contexts that define each movement. 
+        By recognizing the unique characteristics of each style, you can deepen your appreciation for art and its evolution over time.
         </p>
         <div className="main-section__dropdown">
           <label htmlFor="art-style" className="main-section__dropdown-label">Style</label>

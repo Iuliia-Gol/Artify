@@ -28,11 +28,12 @@ body {
 
     &__nav-button{
         position: absolute;
+        text-decoration: none;
         font-size: 1.1rem;
         font-weight: 600;
         color: white;
-        top: 4%;
-        left: 75%;
+        top: 7%;
+        left: 83%;
         border: none;
         border-radius: 12px;
         padding: 15px;
@@ -62,7 +63,7 @@ body {
 
     &__title{
         text-align: center;
-        font-size: 5rem;
+        font-size: 6rem;
         color: #2B46BD;
         font-weight: 100;
 
@@ -73,16 +74,16 @@ body {
         letter-spacing: 17px;
         }
         &--escape{
-            margin-left: 5%;
+            margin-right: 10%;
             letter-spacing: 17px;
         }
         &--highlight {
           position: relative;
           font-family: 'League Script';
-          font-size: 5.8rem;
+          margin-right: 70%;
+          font-size: 8rem;
           color: #ff8a00;
-          margin-right: 63vw;
-          top: 10vw;
+          top: 8vw;
         }
       }
 
@@ -92,7 +93,7 @@ body {
     
 
         &--description {
-            font-size: 1.1rem;
+            font-size: 1.3rem;
             margin-bottom: 2rem;
             color: #2B46BD;
             font-weight: 100;
@@ -138,9 +139,9 @@ body {
       display: flex;
       flex-direction: row;
       justify-content: center;
-      font-size: 1rem;
+      font-size: 1.3rem;
       color:#2B46BD;
-      margin-top: 2rem;
+      margin-top: 3rem;
       margin-right: 41vw;
       gap: 15%;
       

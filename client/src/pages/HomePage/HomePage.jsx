@@ -29,15 +29,15 @@ function HomePage() {
       </div>
         
         <div className="home__title">
-          <div className="home__title--sublime">SUBLIME</div>
+          <div className="home__title--sublime">AMAZING</div>
           <span className="home__title--highlight">art</span>
-          <div className="home__title--escape">ESCAPES</div>
+          <div className="home__title--escape">HERE</div>
         </div>
 
         <div className="home__subtitle-section">
 
-          <h2 className="home__subtitle-section--description">Uncover the richness of art styles and history. 
-          Let our AI help you create stunning artworks inspired by the great masters.</h2>
+          <h2 className="home__subtitle-section--description">Discover the richness of art styles and history. 
+          Allow our AI to assist you in creating stunning artworks inspired by the great masters.</h2>
 
           <div className="home__discover-now">
           <Link to="/discover-now" className="home__discover-now-button">
