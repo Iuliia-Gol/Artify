@@ -3,13 +3,18 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './HomePage.scss';
 import BackgroundImage from '../../assets/AdobeStock_542387977.png';
+import ArrowIcon from '../../assets/Arrow.svg'; 
+import Logo from '../../assets/Artify-logo.svg'; 
+
 
 function HomePage() {
   return (
     <div className="home">
 
       <nav className="home__nav">
-        <div className="home__logo">artifý</div>
+      <div className="home__logo">
+          <img src={Logo} alt="Artifý Logo" className="discover__logo--image" />
+        </div>
         <div><button className="home__nav-button">Generative Artwork</button></div>
       </nav>
 
@@ -33,7 +38,12 @@ function HomePage() {
 
           <div className="home__discover-now">
           <Link to="/discover-now" className="home__discover-now-button">
-          <button className="home__discover-button">Discover Now</button>
+          <button className="home__discover-button">
+               <span className='home__discover-button--text'>Discover Now</span> 
+                <span className="home__discover-button--icon">
+                  <img src={ArrowIcon} alt="Arrow Icon" />
+                </span>
+              </button>
             </Link>
           </div>
 

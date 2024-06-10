@@ -18,7 +18,7 @@ app.get('/api/art-styles', async (req, res) => {
           classification_titles: ["modern and contemporary art", "painting"],
           style_title: "Modernism",
           date_display: "1820",
-          limit: 3 
+          limit: 4 
         }
       });
       res.json(response.data.data); 
@@ -37,7 +37,7 @@ app.get('/api/art-styles', async (req, res) => {
             params: {
                 q: query,
                 fields: 'image_id, id',
-                limit: 3,
+                limit: 4,
             }
         });
         console.log(response.data.data)

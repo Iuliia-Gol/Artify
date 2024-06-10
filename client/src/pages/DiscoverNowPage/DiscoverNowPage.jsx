@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './DiscoverNowPage.scss';
+import Logo from '../../assets/Artify-logo.svg'; 
+import SearchIcon from '../../assets/Search-icon.svg';
+
 
 export default function DiscoverNowPage() {
 
@@ -49,48 +52,54 @@ export default function DiscoverNowPage() {
   };
 
   return (
-    <div className="discover-now">
+    <div className="discover">
 
-      <nav className="discover-now__nav">
-        <div className="discover-now__logo">artifý</div>
-        <Link to="/" className="discover-now__nav-button">HOME</Link>
+      <nav className="discover__nav">
+      <div className="discover__logo">
+          <img src={Logo} alt="Artifý Logo" className="discover__logo--image" />
+        </div>
+        <Link to="/" className="discover__nav-button">HOME</Link>
       </nav>
 
-      <main className="discover-now__main">
+      <main className="main">
 
-        <h1 className="discover-now__title">Discover Art</h1>
-        <div className="discover-now__search-section">
+        <h1 className="main__title">Discover Art</h1>
+        <div className="main__search">
+        <div className="main__icon">
+            <img src={SearchIcon} alt="Search Icon" />
+          </div>
           <input 
             type="text" 
-            className="discover-now__search-input" 
+            className="main__input" 
             placeholder="Search for art styles, artists, and their works . . ." 
             value={searchQuery}
             onChange={handleSearchChange}
           />
-          <button className="discover-now__search-button">
-            <span className="discover-now__search-icon">🔍</span> Search
-          </button>
+          <button className="main__button">SEARCH</button>
         </div>
 
-        <div className="discover-now__artworks">
+        <section>
+        <div className="artworks">
           {Array.isArray(artworks) && artworks.map((artwork) => (
-            <div key={artwork.id} className="discover-now__artwork">
-              <div className="discover-now__artwork-placeholder">
+            <div key={artwork.id} className="artworks__artwork">
+              <div className="artworks__artwork--image">
                 {artwork.image_id ? (
                   <img src={`https://www.artic.edu/iiif/2/${artwork.image_id}/full/843,/0/default.jpg`} alt={artwork.title} />
                 ) : (
                   <div>No Image Available</div>
                 )}
               </div>
-              <div className="discover-now__artwork-details">
-                <p className="discover-now__artwork-title">{artwork.artist_title}</p>
-                <p className="discover-now__artwork-artist">{artwork.style_title}</p>
-                <p className="discover-now__artwork-style">{artwork.classification_titles}</p>
-                <p className="discover-now__artwork-year">{artwork.date_display}</p>
+              <div className="artworks__artdetails">
+                <p className="artworks__artdetails--title">{artwork.artist_title}</p>
+                <p className="artworks__artdetails--artist">{artwork.style_title}</p>
+                <p className="artdetails--style">{artwork.classification_titles}</p>
+                <p className="artdetails--year">{artwork.date_display}</p>
               </div>
             </div>
           ))}
         </div>
+        </section>
+
       </main>
     </div>
   );
