@@ -18,7 +18,7 @@ body {
         padding-left: 30%;
         padding-top: 30%;
         &--image{
-            height: 8%;
+            height: 5.5vw;
             width: auto;
         }
      
@@ -26,10 +26,10 @@ body {
     &__nav-button{
         position: absolute;
         text-decoration: none;
-        font-size: 1.4rem;
+        font-size: 1.5rem;
         font-weight: 400;
         color:#2B46BD;
-        top: 5%;
+        top: 4%;
         left: 85%;
         border: none;
         border-radius: 12px;
@@ -41,6 +41,7 @@ body {
         display: flex;
         flex-direction: column;
         margin-top: 10%;
+        margin-left: 8%;
     
     &__title{
         font-weight: 100;
@@ -124,10 +125,11 @@ body {
     width: 300px;
     max-width: 100%;
     margin-bottom: 2rem;
+    font-size: 1.2rem;
     text-transform: capitalize; 
-    text-transform: uppercase; 
+    // text-transform: uppercase; 
     text-align: center;
-    // color: #2B46BD;
+    color: #FF8A00;
     
 
     &--image {

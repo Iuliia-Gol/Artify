@@ -2,7 +2,7 @@
 // @import 'global.scss' as ;
 
 body {
-    font-family: 'Montserrat-Regular', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     margin:0;
     box-sizing: border-box;
     background-color: white;
@@ -19,8 +19,8 @@ body {
     &__logo{
         padding-left: 30%;
         padding-top: 30%;
-        &--image{
-            height: 8%;
+        img {
+            height: 5.5vw;
             width: auto;
         }
      
