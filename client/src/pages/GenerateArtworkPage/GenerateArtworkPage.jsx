@@ -5,10 +5,13 @@ import openaiLogo from '/src/assets/OpenAI_Logo.svg.png';
 import './GenerateArtworkPage.scss';
 import Logo from '../../assets/Artify-logo.svg'; 
 import Placeholder from '../../assets/GenArtPlaceholder.svg'
+import ArtStyleCard from '../../components/ArtStyleCard.jsx';
 
 export default function GenerateArtworkPage() {
   const [generatedImage, setGeneratedImage] = useState(null);
   const [selectedStyle, setSelectedStyle] = useState('');
+  const [isCardOpen, setIsCardOpen] = useState(false);
+  const [cardContent, setCardContent] = useState({artStyles:'', description:''});
 
   const artStyles = [
     'Impressionism', 'Cubism', 'Surrealism', 'Abstract Expressionism',
@@ -33,6 +36,24 @@ export default function GenerateArtworkPage() {
     'Romanticism': ["Stormy sea with a shipwreck", "Dramatic mountain landscape", "Heroic scene with a lone figure", "Emotional depiction of a natural disaster"]
   };
 
+  const artStyleDescriptions = {
+    'Impressionism': 'Impressionism is an art movement that originated in France in the late 19th century. Characterized by small, thin brush strokes and an emphasis on light and its changing qualities, Impressionist artists often depicted everyday scenes and landscapes. They sought to capture the momentary effects of light and color, creating a sense of immediacy and movement. Notable artists include Claude Monet, Edgar Degas, and Pierre-Auguste Renoir.',
+    'Cubism': 'Cubism is a revolutionary art movement that began in the early 20th century, pioneered by Pablo Picasso and Georges Braque. This style breaks objects into geometric shapes, presenting multiple viewpoints simultaneously. Cubism challenges traditional perspectives, focusing on abstract forms rather than realistic representation. It marks a significant departure from the artistic conventions of the time, influencing a wide range of subsequent art styles.',
+    'Surrealism': 'Surrealism emerged in the 1920s as a literary and artistic movement aimed at unlocking the unconscious mind. Surrealist artists like Salvador Dalí and René Magritte created dreamlike scenes with illogical juxtapositions and bizarre imagery. By exploring the irrational and the fantastical, Surrealism challenges viewers to question reality and tap into their own subconscious thoughts and feelings.',
+    'Abstract Expressionism': 'Abstract Expressionism is an American post-World War II art movement that emphasizes spontaneous, automatic, or subconscious creation. Artists such as Jackson Pollock and Mark Rothko used bold brush strokes, dynamic compositions, and vivid colors to express emotion and individual expression. This style often features non-representational forms and prioritizes the process of creation itself.',
+    'Pop Art': 'Pop Art is an art movement that emerged in the mid-20th century, characterized by themes and techniques drawn from popular culture. Artists like Andy Warhol and Roy Lichtenstein used imagery from advertising, comic books, and mass media, often employing bright colors and bold lines. Pop Art critiques consumerism and challenges the boundaries between high art and commercial art.',
+    'Renaissance': 'The Renaissance was a period of great cultural revival and achievement in Europe, spanning the 14th to 17th centuries. Marked by a renewed interest in classical antiquity, Renaissance art emphasizes realism, proportion, and perspective. Artists such as Leonardo da Vinci, Michelangelo, and Raphael created masterpieces that embody the harmony and beauty of this era, focusing on humanism and the natural world.',
+    'Baroque': 'Baroque art, which flourished in Europe from the late 16th to the early 18th century, is known for its dramatic use of light and shadow, intense emotion, and dynamic compositions. Artists like Caravaggio, Peter Paul Rubens, and Rembrandt created works that convey movement, tension, and grandeur, often with religious or mythological themes.',
+    'Minimalism': 'Minimalism is an art movement that emerged in the late 1950s, focusing on simplicity and abstraction. Minimalist artists like Donald Judd and Frank Stella created works with clean lines, geometric shapes, and monochromatic palettes. This style emphasizes the idea that "less is more," stripping away extraneous details to reveal the essence of form and color.',
+    'Art Nouveau': 'Art Nouveau is an ornamental art style that flourished between 1890 and 1910, characterized by its use of flowing lines, intricate patterns, and organic forms. Artists like Alphonse Mucha and Gustav Klimt often depicted natural elements such as flowers and plants, blending them with graceful, sinuous lines. Art Nouveau aims to harmonize art with the natural environment, creating a sense of elegance and sophistication.',
+    'Futurism': 'Futurism is an early 20th-century art movement that originated in Italy, celebrating technology, speed, and modernity. Futurist artists like Umberto Boccioni and Giacomo Balla sought to capture the dynamism of the industrial age through vibrant colors and fragmented forms. This style reflects a fascination with the energy and movement of contemporary life, often depicting scenes of urban environments and machines.',
+    'Neoclassicism': 'Neoclassicism is an art movement that emerged in the mid-18th century as a reaction against the ornate Rococo style. Inspired by the classical art and architecture of ancient Greece and Rome, Neoclassical artists like Jacques-Louis David and Jean-Auguste-Dominique Ingres emphasized simplicity, symmetry, and rationality. This style often features heroic subjects and moral themes, reflecting Enlightenment ideals.',
+    'Op Art': 'Op Art, short for Optical Art, is a style of visual art that uses optical illusions to create the impression of movement or depth. Emerging in the 1960s, Op Art artists like Bridget Riley and Victor Vasarely used precise patterns, lines, and contrasting colors to trick the viewer\'s eye. This style explores the relationship between perception and reality, often resulting in mesmerizing, dynamic compositions.',
+    'Art Deco': 'Art Deco is a decorative art style that emerged in the 1920s and 1930s, characterized by its bold geometric shapes, lavish ornamentation, and vibrant colors. Influenced by a range of sources, including Cubism and ancient Egyptian art, Art Deco artists like Tamara de Lempicka and Erté created works that convey elegance, luxury, and modernity. This style is often associated with architecture, fashion, and design.',
+    'Romanticism': 'Romanticism is an artistic movement that began in the late 18th century, emphasizing emotion, imagination, and individualism. Romantic artists like Caspar David Friedrich and Eugène Delacroix depicted dramatic landscapes, historical events, and exotic subjects, often with a focus on the sublime and the transcendental. This style values personal expression and the beauty of the natural world, reacting against the rationalism of the Enlightenment.'
+};
+
+
   const handleGenerate = async (style) => {
     try {
       const response = await axios.post('http://localhost:3001/generate-artwork', {
@@ -42,6 +63,17 @@ export default function GenerateArtworkPage() {
       setGeneratedImage(response.data.imageUrl);
     } catch (error) {
       console.error('Error generating artwork:', error);
+    }
+  };
+
+  const handleStyleChange = (event) => {
+    const style = event.target.value;
+    setSelectedStyle(style);
+    if (style) {
+      setCardContent({ artStyle: style, description: artStyleDescriptions[style] });
+      setIsCardOpen(true);
+    } else {
+      setIsCardOpen(false);
     }
   };
 
@@ -61,13 +93,14 @@ export default function GenerateArtworkPage() {
         Choose an art style, and let our AI create a unique masterpiece. Exploring different art styles helps you understand the diverse techniques and historical contexts that define each movement. 
         By recognizing the unique characteristics of each style, you can deepen your appreciation for art and its evolution over time.
         </p>
+        
         <div className="main-section__dropdown">
           <label htmlFor="art-style" className="main-section__dropdown-label">Style</label>
           <select
             id="art-style"
             className="main-section__dropdown-select"
             value={selectedStyle}
-            onChange={(e) => setSelectedStyle(e.target.value)}
+            onChange={handleStyleChange}
           >
             <option value="">Select Art Style</option>
             {artStyles.map((style) => (
@@ -75,19 +108,26 @@ export default function GenerateArtworkPage() {
             ))}
           </select>
         </div>
+
         <button
           className="main-section__generate-button"
           onClick={() => handleGenerate(selectedStyle)}
         >
           GENERATE
         </button>
+
         <div className="artwork-placeholder">
           {generatedImage ? (
-            <img src={generatedImage} alt="Generated Artwork" className="artwork-placeholder__image" />
+            <img src={generatedImage} alt="Generated Artwork" className="artwork-placeholder__generated" />
           ) : (
             <img src={Placeholder} alt="Artwork Placeholder" className="artwork-placeholder__image" />
           )}
         </div>
+        <ArtStyleCard
+          isOpen={isCardOpen}
+          artStyle={cardContent.artStyle}
+          description={cardContent.description}
+        />
       </main>
     </div>
   );
