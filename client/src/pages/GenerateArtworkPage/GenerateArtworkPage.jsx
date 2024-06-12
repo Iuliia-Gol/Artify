@@ -16,7 +16,8 @@ export default function GenerateArtworkPage() {
   const artStyles = [
     'Impressionism', 'Cubism', 'Surrealism', 'Abstract Expressionism',
     'Pop Art', 'Renaissance', 'Baroque', 'Minimalism', 'Art Nouveau', 'Futurism',
-    'Neoclassicism', 'Op Art', 'Art Deco', 'Romanticism'
+    'Neoclassicism', 'Op Art', 'Art Deco', 'Romanticism', 'Expressionism', 'Post-Impressionism', 
+    'Dada', 'Symbolism', 'Realism', 'Constructivism'
   ];
 
   const prompts = {
@@ -33,8 +34,19 @@ export default function GenerateArtworkPage() {
     'Neoclassicism': ["Heroic figure in classical attire", "Ancient Roman architecture", "Statuesque figure in a toga", "Classical temple with columns"],
     'Op Art': ["Optical illusion with black and white patterns", "Colorful spirals and waves", "Checkerboard pattern with visual depth", "Geometric shapes creating visual tricks"],
     'Art Deco': ["Stylish city skyline with geometric patterns", "Elegant interior with bold shapes", "Vintage car with sleek design", "Glamorous fashion illustration"],
-    'Romanticism': ["Stormy sea with a shipwreck", "Dramatic mountain landscape", "Heroic scene with a lone figure", "Emotional depiction of a natural disaster"]
-  };
+    'Romanticism': ["Stormy sea with a shipwreck", "Dramatic mountain landscape", "Heroic scene with a lone figure", "Emotional depiction of a natural disaster"],
+    'Neoclassicism': 'Neoclassicism is an art movement that emerged in the mid-18th century as a reaction against the ornate Rococo style. Inspired by the classical art and architecture of ancient Greece and Rome, Neoclassical artists like Jacques-Louis David and Jean-Auguste-Dominique Ingres emphasized simplicity, symmetry, and rationality. This style often features heroic subjects and moral themes, reflecting Enlightenment ideals.',
+    'Op Art': 'Op Art, short for Optical Art, is a style of visual art that uses optical illusions to create the impression of movement or depth. Emerging in the 1960s, Op Art artists like Bridget Riley and Victor Vasarely used precise patterns, lines, and contrasting colors to trick the viewer\'s eye. This style explores the relationship between perception and reality, often resulting in mesmerizing, dynamic compositions.',
+    'Art Deco': 'Art Deco is a decorative art style that emerged in the 1920s and 1930s, characterized by its bold geometric shapes, lavish ornamentation, and vibrant colors. Influenced by a range of sources, including Cubism and ancient Egyptian art, Art Deco artists like Tamara de Lempicka and Erté created works that convey elegance, luxury, and modernity. This style is often associated with architecture, fashion, and design.',
+    'Romanticism': 'Romanticism is an artistic movement that began in the late 18th century, emphasizing emotion, imagination, and individualism. Romantic artists like Caspar David Friedrich and Eugène Delacroix depicted dramatic landscapes, historical events, and exotic subjects, often with a focus on the sublime and the transcendental. This style values personal expression and the beauty of the natural world, reacting against the rationalism of the Enlightenment.',
+    'Expressionism': 'Expressionism is an early 20th-century art movement that emphasizes the expression of emotional experience rather than physical reality. Artists like Edvard Munch and Egon Schiele used bold colors, distorted forms, and exaggerated lines to convey intense feelings and moods. This style often explores themes of angst, isolation, and existential dread, reflecting the turbulent social and political climate of the time.',
+    'Post-Impressionism': 'Post-Impressionism is a term used to describe the diverse range of styles that emerged in the late 19th century in response to Impressionism. Artists like Vincent van Gogh, Paul Cézanne, and Georges Seurat sought to build on Impressionism\'s innovations while emphasizing more structured forms and emotional depth. This movement paved the way for many of the avant-garde art styles of the 20th century.',
+    'Dada': 'Dada is an avant-garde art movement of the early 20th century that rejected conventional aesthetics and embraced absurdity, spontaneity, and anti-bourgeois sentiment. Artists like Marcel Duchamp and Hannah Höch used collage, photomontage, and readymade objects to challenge traditional notions of art and provoke thought about the role of art in society. Dada is considered a precursor to Surrealism and other modern art movements.',
+    'Symbolism': 'Symbolism is an art movement that emerged in the late 19th century, emphasizing the use of symbolic imagery to express mystical, philosophical, and emotional themes. Artists like Gustav Klimt and Odilon Redon created works that often featured dreamlike, allegorical subjects, using rich colors and intricate details to evoke a sense of mystery and otherworldliness. Symbolism seeks to convey the deeper truths hidden beneath the surface of reality.',
+    'Realism': 'Realism is an art movement that began in the mid-19th century, focusing on the accurate and unembellished depiction of everyday life. Artists like Gustave Courbet and Jean-François Millet portrayed ordinary people and scenes with a commitment to truth and social commentary. Realism rejects the idealization of subjects, instead highlighting the beauty and dignity of the commonplace and the working class.',
+    'Constructivism': 'Constructivism is an early 20th-century art movement that originated in Russia, emphasizing abstract, geometric forms and a focus on materiality and functionality. Artists like Vladimir Tatlin and El Lissitzky created works that often had a political and social dimension, aiming to reflect the values of the new Soviet society. Constructivism influenced architecture, graphic design, and industrial design, promoting the idea that art should serve a practical purpose.'
+};
+
 
   const artStyleDescriptions = {
     'Impressionism': 'Impressionism is an art movement that originated in France in the late 19th century. Characterized by small, thin brush strokes and an emphasis on light and its changing qualities, Impressionist artists often depicted everyday scenes and landscapes. They sought to capture the momentary effects of light and color, creating a sense of immediacy and movement. Notable artists include Claude Monet, Edgar Degas, and Pierre-Auguste Renoir.',
@@ -61,6 +73,24 @@ export default function GenerateArtworkPage() {
         style: style
       });
       setGeneratedImage(response.data.imageUrl);
+      setCardContent({ artStyle: style, description: artStyleDescriptions[style] });
+      setIsCardOpen(true);
+    } catch (error) {
+      console.error('Error generating artwork:', error);
+    }
+  };
+
+  const handleRandomGenerate = async () => {
+    const randomStyle = artStyles[Math.floor(Math.random() * artStyles.length)];
+    setSelectedStyle(randomStyle);
+    try {
+      const response = await axios.post('http://localhost:3001/generate-artwork', {
+        keywords: prompts[randomStyle],
+        style: randomStyle
+      });
+      setGeneratedImage(response.data.imageUrl);
+      setCardContent({ artStyle: randomStyle, description: artStyleDescriptions[randomStyle] });
+      setIsCardOpen(true);
     } catch (error) {
       console.error('Error generating artwork:', error);
     }
@@ -69,13 +99,10 @@ export default function GenerateArtworkPage() {
   const handleStyleChange = (event) => {
     const style = event.target.value;
     setSelectedStyle(style);
-    if (style) {
-      setCardContent({ artStyle: style, description: artStyleDescriptions[style] });
-      setIsCardOpen(true);
-    } else {
-      setIsCardOpen(false);
-    }
+    setGeneratedImage(null);
+    setIsCardOpen(false);
   };
+  
 
   return (
     <div className="generate-artwork-page">
@@ -116,6 +143,14 @@ export default function GenerateArtworkPage() {
           GENERATE
         </button>
 
+        <button
+             className="main-section__surprise-button"
+             onClick={handleRandomGenerate}
+                                      >
+              SURPRISE ME
+        </button>
+
+
         <div className="artwork-placeholder">
           {generatedImage ? (
             <img src={generatedImage} alt="Generated Artwork" className="artwork-placeholder__generated" />
@@ -123,11 +158,12 @@ export default function GenerateArtworkPage() {
             <img src={Placeholder} alt="Artwork Placeholder" className="artwork-placeholder__image" />
           )}
         </div>
-        <ArtStyleCard
-          isOpen={isCardOpen}
-          artStyle={cardContent.artStyle}
-          description={cardContent.description}
-        />
+        {isCardOpen && (
+          <ArtStyleCard
+            artStyle={cardContent.artStyle}
+            description={cardContent.description}
+          />
+        )}
       </main>
     </div>
   );

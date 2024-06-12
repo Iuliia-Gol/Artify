@@ -40,6 +40,7 @@ body {
     text-align: center;
     padding: 2rem;
     background-color: #f8f9fa;
+    
 
     &__title {
       font-size: 2.5rem;
@@ -58,7 +59,7 @@ body {
     }
 
     &__dropdown {
-      margin-bottom: 1.5rem;
+      margin-bottom: 3rem;
 
       &-label {
         font-size: 1rem;
@@ -83,15 +84,33 @@ body {
       color: #fff;
       cursor: pointer;
       transition: background 0.3s;
+      
 
       &:hover {
         background: linear-gradient(90deg, #FF8A00, #FFA500);
       }
     }
 
+      &__surprise-button {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        border: none;
+        border-radius: 25px;
+        background: linear-gradient(90deg, #FF8A00, #FFC800);
+        color: #fff;
+        margin-left: 5%;
+        cursor: pointer;
+        transition: background 0.3s;
+        
+  
+        &:hover {
+          background: linear-gradient(90deg, #FF8A00, #FFA500);
+        }
+    }
+
     .artwork-placeholder {
-      margin-top: 2rem;
-      margin-right: 40%;
+      margin-top: 3rem;
+      margin-right: 35%;
 
       &__image {
         max-width: 100%;

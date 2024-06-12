@@ -1,8 +1,8 @@
 import React from "react";
 import './ArtStyleCard.scss'
 
-const ArtStyleCard = ({ isOpen, artStyle, description }) => {
-    if (!isOpen) return null;
+const ArtStyleCard = ({ artStyle, description }) => {
+    // if (!isOpen) return null;
   
     return (
       <div className="card">
